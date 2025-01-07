@@ -974,6 +974,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseSensitivity: 500
   playerBody: {fileID: 35591776}
+  recoilAmount: 2
+  recoilRecoverySpeed: 5
   smoothFactor: 0.05
 --- !u!1 &1246959499
 GameObject:
@@ -1201,6 +1203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 948686112}
+  playerCamera: {fileID: 948686113}
   damage: 10
   layerMask:
     serializedVersion: 2
