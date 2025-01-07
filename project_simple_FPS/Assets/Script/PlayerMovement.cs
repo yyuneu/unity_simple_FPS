@@ -5,7 +5,10 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
-    private float moveSpeed = 5f; // 이동속도
+    [SerializeField] private float baseMoveSpeed = 5f; // 기본 이동 속도
+    [SerializeField] private float sprintMultiplier = 2f; // 스프린트 시 속도 배율
+    [SerializeField] private float jumpForce = 5f; // 점프 힘
+    [SerializeField] private float gravityScale = 1f; // 중력 가속도 스케일
 
     private CharacterController characterController;
 
@@ -13,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     private float moveH; // 좌측 이동방향
     private float moveV; // 전후 이동방향
     private float moveY; // 중력계산
+    private float moveSpeed; // 현재 이동 속도
 
     // 특정 좌표로 리셋
     private Vector3 respawnPosition = new Vector3(0, 0, -7); // 리셋 위치
@@ -31,28 +35,38 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        moveH = Input.GetAxis("Horizontal"); //수평 방향 입력 값(예: A, D 키 또는 화살표 키)을 받음
-        moveV = Input.GetAxis("Vertical"); //수직 방향 입력 값(예: W, S 키 또는 화살표 키)을 받음
+        moveH = Input.GetAxis("Horizontal"); // 수평 방향 입력 값
+        moveV = Input.GetAxis("Vertical"); // 수직 방향 입력 값
+
+        // 스프린트 처리
+        moveSpeed = Input.GetKey(KeyCode.LeftShift) ? baseMoveSpeed * sprintMultiplier : baseMoveSpeed;
 
         if (characterController.isGrounded)
         {
             moveY = 0;
+
+            // 점프 입력 처리
+            if (Input.GetButtonDown("Jump"))
+            {
+                moveY = jumpForce;
+            }
         }
         else
         {
-            moveY += Physics.gravity.y * Time.deltaTime;
+            // 중력 가속도 적용
+            moveY += Physics.gravity.y * gravityScale * Time.deltaTime;
         }
 
-        // 월드좌표를 기준으로 한 방식 : moveVec = new Vector3(moveH, 0, moveV);
         // 로컬좌표를 기준으로 한 방식
         moveVec = transform.right * moveH + transform.forward * moveV;
         moveVec.y = moveY;
 
+        // 이동
         characterController.Move(moveVec * Time.deltaTime * moveSpeed);
     }
 
-    //낙하처리
-    private void CheckFall() 
+    // 낙하 처리
+    private void CheckFall()
     {
         if (transform.position.y < fallThreshold)
         {
