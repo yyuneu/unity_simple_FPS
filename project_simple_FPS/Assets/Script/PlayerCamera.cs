@@ -19,7 +19,7 @@ public class PlayerCamera : MonoBehaviour
     private float targetMouseY;
 
     [SerializeField]
-    private float smoothFactor = 0.05f; // 적당한 부드러움 조정 (0.01~0.1 추천)
+    private float smoothFactor = 0.05f; // 부드럽게 움직임
 
     // Unity 메시지 | 참조 0개
     private void Start()
