@@ -2,75 +2,63 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
-    private float moveSpeed = 5f; // ì´ë™ ì†ë„
-    private float jumpForce = 7f; // ì í”„ í˜
+    private float moveSpeed = 5f; // ÀÌµ¿¼Óµµ
 
-    private Rigidbody rb;
-    private bool isGrounded; // ìºë¦­í„°ê°€ ë•…ì— ìˆëŠ”ì§€ ì—¬ë¶€
+    private CharacterController characterController;
 
-    public Transform groundChecker; // Ground Checker ì˜¤ë¸Œì íŠ¸ ì°¸ì¡°
-    public float groundCheckRadius = 0.2f; // Ground Checkerì˜ ê°ì§€ ë°˜ê²½
-    public LayerMask groundLayer; // ë•…ìœ¼ë¡œ ì„¤ì •í•  ë ˆì´ì–´
+    private Vector3 moveVec; // Ä³¸¯ÅÍÀÇ ¿òÁ÷ÀÌ´Â ¹æÇâ
+    private float moveH; // ÁÂÃø ÀÌµ¿¹æÇâ
+    private float moveV; // ÀüÈÄ ÀÌµ¿¹æÇâ
+    private float moveY; // Áß·Â°è»ê
 
-    private Vector3 respawnPosition = new Vector3(0, 0, -7); // ë¦¬ìŠ¤í° ìœ„ì¹˜
-    private float fallThreshold = -10f; // ë‚™í•˜ ê¸°ì¤€ì 
+    // Æ¯Á¤ ÁÂÇ¥·Î ¸®¼Â
+    private Vector3 respawnPosition = new Vector3(0, 0, -7); // ¸®¼Â À§Ä¡
+    private float fallThreshold = -10f; // ¶³¾îÁö´Â ÀÓ°è°ª
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        characterController = GetComponent<CharacterController>();
     }
 
     private void Update()
     {
-        CheckGround();
         Move();
         CheckFall();
-
-        if (isGrounded && Input.GetButtonDown("Jump"))
-        {
-            Jump();
-        }
     }
 
     private void Move()
     {
-        float moveH = Input.GetAxis("Horizontal"); // ê°€ë¡œ ë°©í–¥ ì…ë ¥ ê°’
-        float moveV = Input.GetAxis("Vertical"); // ì„¸ë¡œ ë°©í–¥ ì…ë ¥ ê°’
+        moveH = Input.GetAxis("Horizontal"); //¼öÆò ¹æÇâ ÀÔ·Â °ª(¿¹: A, D Å° ¶Ç´Â È­»ìÇ¥ Å°)À» ¹ŞÀ½
+        moveV = Input.GetAxis("Vertical"); //¼öÁ÷ ¹æÇâ ÀÔ·Â °ª(¿¹: W, S Å° ¶Ç´Â È­»ìÇ¥ Å°)À» ¹ŞÀ½
 
-        // ì´ë™ ë°©í–¥ ê³„ì‚°
-        Vector3 moveDirection = new Vector3(moveH, 0, moveV);
-        moveDirection = transform.TransformDirection(moveDirection); // ë¡œì»¬ -> ì›”ë“œ ì¢Œí‘œ ë³€í™˜
-        moveDirection *= moveSpeed;
+        if (characterController.isGrounded)
+        {
+            moveY = 0;
+        }
+        else
+        {
+            moveY += Physics.gravity.y * Time.deltaTime;
+        }
 
-        // Rigidbodyì˜ XZ ì´ë™ ì²˜ë¦¬
-        Vector3 velocity = rb.linearVelocity;
-        velocity.x = moveDirection.x;
-        velocity.z = moveDirection.z;
-        rb.linearVelocity = velocity;
+        // ¿ùµåÁÂÇ¥¸¦ ±âÁØÀ¸·Î ÇÑ ¹æ½Ä : moveVec = new Vector3(moveH, 0, moveV);
+        // ·ÎÄÃÁÂÇ¥¸¦ ±âÁØÀ¸·Î ÇÑ ¹æ½Ä
+        moveVec = transform.right * moveH + transform.forward * moveV;
+        moveVec.y = moveY;
+
+        characterController.Move(moveVec * Time.deltaTime * moveSpeed);
     }
 
-    private void CheckGround()
-    {
-        // Ground Checker ìœ„ì¹˜ì—ì„œ ê°ì§€ ë°˜ê²½ ë‚´ì— Ground Layerê°€ ìˆëŠ”ì§€ í™•ì¸
-        isGrounded = Physics.CheckSphere(groundChecker.position, groundCheckRadius, groundLayer);
-
-        // ë””ë²„ê·¸ìš©: Ground Checkerì˜ ê°ì§€ ë²”ìœ„ ì‹œê°í™”
-        Debug.DrawLine(groundChecker.position, groundChecker.position + Vector3.down * groundCheckRadius, isGrounded ? Color.green : Color.red);
-    }
-
-    private void Jump()
-    {
-        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse); // ìœ„ìª½ìœ¼ë¡œ í˜ì„ ê°€í•¨
-    }
-
-    private void CheckFall()
+    //³«ÇÏÃ³¸®
+    private void CheckFall() 
     {
         if (transform.position.y < fallThreshold)
         {
-            transform.position = respawnPosition; // ìœ„ì¹˜ ì´ˆê¸°í™”
-            rb.linearVelocity = Vector3.zero; // ì†ë„ ì´ˆê¸°í™”
+            characterController.enabled = false; // ÀÌµ¿ ÁßÁö
+            transform.position = respawnPosition; // À§Ä¡ ÃÊ±âÈ­
+            characterController.enabled = true; // ÀÌµ¿ Àç°³
         }
     }
 }
