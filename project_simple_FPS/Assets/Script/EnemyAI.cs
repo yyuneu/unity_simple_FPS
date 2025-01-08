@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -59,12 +60,21 @@ public class EnemyAI : MonoBehaviour
 
     private bool IsObstacleBetween()
     {
+        // 적과 플레이어 사이에 장애물이 있는지 확인
         Ray ray = new Ray(firePoint.position, (player.position - firePoint.position).normalized);
         if (Physics.Raycast(ray, out RaycastHit hit, shootingRange))
         {
-            return !hit.collider.CompareTag("Player");
+            if (hit.collider.CompareTag("Player"))
+            {
+                return false; // 장애물이 없음
+            }
+            else
+            {
+                Debug.Log("Obstacle detected: " + hit.collider.name);
+                return true; // 장애물이 있음
+            }
         }
-        return false;
+        return false; // 장애물이 없음
     }
 
     private void SetRandomPatrolTarget()
@@ -72,7 +82,8 @@ public class EnemyAI : MonoBehaviour
         Vector3 randomDirection = Random.insideUnitSphere * patrolRadius;
         randomDirection += transform.position;
 
-        if (NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, patrolRadius, NavMesh.AllAreas))
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(randomDirection, out hit, patrolRadius, NavMesh.AllAreas))
         {
             patrolTarget = hit.position;
         }
@@ -92,6 +103,7 @@ public class EnemyAI : MonoBehaviour
 
     private void FacePlayer()
     {
+        // 플레이어를 향해 회전
         Vector3 direction = (player.position - transform.position).normalized;
         direction.y = 0; // 수직 방향 회전 방지
         transform.rotation = Quaternion.LookRotation(direction);
@@ -106,6 +118,7 @@ public class EnemyAI : MonoBehaviour
 
         Vector3 shootDirection = (player.position - firePoint.position).normalized;
 
+        // 부정확도 추가
         shootDirection.x += Random.Range(-inaccuracy, inaccuracy) * 0.03f;
         shootDirection.y += Random.Range(-inaccuracy, inaccuracy) * 0.03f;
         shootDirection.z += Random.Range(-inaccuracy, inaccuracy) * 0.03f;

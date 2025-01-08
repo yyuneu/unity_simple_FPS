@@ -12,10 +12,9 @@ GameObject:
   - component: {fileID: 2010474438190526566}
   - component: {fileID: 5035999772658541313}
   - component: {fileID: 3212228697066811215}
+  - component: {fileID: 5151661656265427390}
   - component: {fileID: 6714278443190105494}
-  - component: {fileID: 745934423228809506}
-  - component: {fileID: -8079400386187197624}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: AI_enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,6 +114,26 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5151661656265427390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 61344279285220041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b5e764e7095670428ec2babd2ce3360, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  patrolRadius: 20
+  detectionRange: 25
+  shootingRange: 20
+  shootingInterval: 0.5
+  projectilePrefab: {fileID: 8578121651342647199, guid: 371369da14f5ff346b1705826c909dda, type: 3}
+  firePoint: {fileID: 6002490860427930200}
+  projectileSpeed: 60
+  inaccuracy: 0.1
 --- !u!195 &6714278443190105494
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -137,39 +156,6 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &745934423228809506
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 61344279285220041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b5e764e7095670428ec2babd2ce3360, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  patrolRadius: 20
-  detectionRange: 25
-  shootingRange: 20
-  shootingInterval: 0.5
-  projectilePrefab: {fileID: 8578121651342647199, guid: 371369da14f5ff346b1705826c909dda, type: 3}
-  firePoint: {fileID: 6002490860427930200}
-  projectileSpeed: 60
-  inaccuracy: 0.1
---- !u!114 &-8079400386187197624
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 61344279285220041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31232a27a8af07c4f89742eaaa4cceef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
 --- !u!1 &705172803999813986
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,7 +168,7 @@ GameObject:
   - component: {fileID: 1030272843320571099}
   - component: {fileID: 7459139376566660712}
   - component: {fileID: 5395295715428268338}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: gun (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -289,7 +275,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6002490860427930200}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: firepoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
