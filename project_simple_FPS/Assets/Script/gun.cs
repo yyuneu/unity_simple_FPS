@@ -6,21 +6,17 @@ public class Gun : MonoBehaviour
     [SerializeField] private Camera cam; // 플레이어 시점 카메라
     [SerializeField] private float damage = 10f; // 데미지 값
     [SerializeField] private LayerMask layerMask; // 타격 판정을 위한 레이어 마스크
+    [SerializeField] private Crosshair crosshair; // Crosshair 스크립트 참조
 
-    [Header("Recoil Settings - Gun")]
-    [SerializeField] private Transform gunTransform; // 총 오브젝트 Transform
-    [SerializeField] private Vector3 recoilAmount = new Vector3(-0.1f, 0.05f, 0); // 총기 반동 위치
-    [SerializeField] private Vector3 recoilRotation = new Vector3(-5f, 2f, 0f); // 총기 반동 회전
-    [SerializeField] private float recoilSpeed = 5f; // 총기 반동 복구 속도
+    [Header("Audio Clips")]
+    [SerializeField]
+    private AudioClip audioClipTakeOutWeapon; // 무기 장착 사운드
 
-    private Vector3 originalGunPosition; // 총기의 원래 위치
-    private Quaternion originalGunRotation; // 총기의 원래 회전
+    private AudioSource audioSource; // 사운드 재생 컴포넌트
 
     private void Start()
     {
-        // 원래 위치와 회전값 저장
-        originalGunPosition = gunTransform.localPosition;
-        originalGunRotation = gunTransform.localRotation;
+        // 초기화 작업
     }
 
     public void Shoot()
@@ -36,27 +32,35 @@ public class Gun : MonoBehaviour
             }
         }
 
-        // 총기 반동 적용
-        StartCoroutine(HandleGunRecoil());
-    }
-
-    private IEnumerator HandleGunRecoil()
-    {
-        // 총기 반동 위치와 회전 적용
-        gunTransform.localPosition += recoilAmount;
-        gunTransform.localRotation *= Quaternion.Euler(recoilRotation);
-
-        // 총기 원래 위치와 회전으로 복구
-        while (Vector3.Distance(gunTransform.localPosition, originalGunPosition) > 0.01f ||
-               Quaternion.Angle(gunTransform.localRotation, originalGunRotation) > 0.1f)
+        // Crosshair 크기 변경 트리거
+        if (crosshair != null)
         {
-            gunTransform.localPosition = Vector3.Lerp(gunTransform.localPosition, originalGunPosition, Time.deltaTime * recoilSpeed);
-            gunTransform.localRotation = Quaternion.Lerp(gunTransform.localRotation, originalGunRotation, Time.deltaTime * recoilSpeed);
-            yield return null;
+            crosshair.OnFire();
         }
 
-        // 위치 및 회전 고정
-        gunTransform.localPosition = originalGunPosition;
-        gunTransform.localRotation = originalGunRotation;
+        // 총 발사 로직
+        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, Mathf.Infinity, layerMask))
+        {
+            IDamagable target = hit.transform.GetComponent<IDamagable>();
+            target?.TakeHit(damage);
+        }
+    }
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
+    private void OnEnable()
+    {
+        // 무기 장착 사운드 재생
+        PlaySound(audioClipTakeOutWeapon);
+    }
+
+    private void PlaySound(AudioClip clip)
+    {
+        audioSource.Stop(); // 기존에 재생중인 사운드를 정지하고
+        audioSource.clip = clip; // 새로운 사운드를 clip으로 교체 후
+        audioSource.Play(); // 사운드 재생
     }
 }
