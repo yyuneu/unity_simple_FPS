@@ -4,8 +4,8 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
     [SerializeField] private Camera cam; // 플레이어 시점 카메라
-    [SerializeField] private float damage = 10f;
-    [SerializeField] private LayerMask layerMask;
+    [SerializeField] private float damage = 10f; // 데미지 값
+    [SerializeField] private LayerMask layerMask; // 타격 판정을 위한 레이어 마스크
 
     [Header("Recoil Settings - Gun")]
     [SerializeField] private Transform gunTransform; // 총 오브젝트 Transform
@@ -16,8 +16,6 @@ public class Gun : MonoBehaviour
     private Vector3 originalGunPosition; // 총기의 원래 위치
     private Quaternion originalGunRotation; // 총기의 원래 회전
 
-    [SerializeField] private Crosshair crosshair; // Crosshair 스크립트 참조
-
     private void Start()
     {
         // 원래 위치와 회전값 저장
@@ -27,17 +25,15 @@ public class Gun : MonoBehaviour
 
     public void Shoot()
     {
-        // Crosshair 크기 변경 트리거
-        if (crosshair != null)
-        {
-            crosshair.OnFire();
-        }
-
         // Raycast로 타격 판정
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, Mathf.Infinity, layerMask))
         {
             IDamagable target = hit.transform.GetComponent<IDamagable>();
-            target?.TakeHit(damage);
+            if (target != null)
+            {
+                target.TakeHit(damage);
+                Debug.Log($"{hit.collider.name} was hit for {damage} damage.");
+            }
         }
 
         // 총기 반동 적용
