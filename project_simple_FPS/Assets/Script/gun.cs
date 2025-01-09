@@ -15,12 +15,18 @@ public class Gun : MonoBehaviour
     [SerializeField] private AudioClip audioClipTakeOutWeapon; // 무기 장착 사운드
     [SerializeField] private AudioClip audioClipFireWeapon; // 총 발사 사운드
 
+    [Header("Spawn Points")]
+    [SerializeField] private Transform casingSpawnPoint; // 탄피 생성 위치
+
     private AudioSource audioSource; // 사운드 재생 컴포넌트
     private Animator animator; // 무기 애니메이션 컨트롤러
+    private CasingMemoryPool casingMemoryPool; // 탄피 생성 메모리 풀
 
-    private void Start()
+    private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         animator = GetComponentInParent<Animator>(); // 부모 객체에서 Animator 가져오기
+        casingMemoryPool = GetComponent<CasingMemoryPool>(); // CasingMemoryPool 컴포넌트 가져오기
     }
 
     public void Shoot()
@@ -53,6 +59,15 @@ public class Gun : MonoBehaviour
 
         // 총 발사 사운드 재생
         PlaySound(audioClipFireWeapon);
+
+        // 탄피 생성
+        SpawnCasing();
+    }
+
+    private void SpawnCasing()
+    {
+        // 메모리 풀을 이용해 탄피 생성
+        casingMemoryPool.SpawnCasing(casingSpawnPoint.position, transform.right);
     }
 
     private IEnumerator OnMuzzleFlashEffect()
@@ -72,11 +87,6 @@ public class Gun : MonoBehaviour
                 elapsedTime += blinkInterval * 2; // 활성화+비활성화 시간 누적
             }
         }
-    }
-
-    private void Awake()
-    {
-        audioSource = GetComponent<AudioSource>();
     }
 
     private void OnEnable()
