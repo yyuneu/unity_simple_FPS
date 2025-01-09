@@ -17,7 +17,7 @@ public class Gun : MonoBehaviour
     private Quaternion originalGunRotation; // 총기의 원래 회전
 
     [SerializeField] private Crosshair crosshair; // Crosshair 스크립트 참조
-
+    
     private void Start()
     {
         // 원래 위치와 회전값 저장
@@ -27,6 +27,7 @@ public class Gun : MonoBehaviour
 
     public void Shoot()
     {
+        
         // Crosshair 크기 변경 트리거
         if (crosshair != null)
         {
