@@ -45,6 +45,12 @@ public class Gun : MonoBehaviour
         currentAmmo = magazineSize; // 초기 탄창 총알 설정
 
         UpdateAmmoUI(); // 초기 총알 UI 업데이트
+
+        // 초기화
+        if (muzzleFlashEffect != null)
+        {
+            muzzleFlashEffect.SetActive(false); // 총구 이펙트 초기화
+        }
     }
 
     private void Update()
@@ -53,13 +59,13 @@ public class Gun : MonoBehaviour
         SmoothFollowCamera();
 
         // Reload 처리
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R) && !isReloading && currentAmmo < magazineSize && totalAmmo > 0)
         {
             StartReload();
         }
 
         // 자동 재장전
-        if (currentAmmo <= 0 && !isReloading)
+        if (currentAmmo <= 0 && !isReloading && totalAmmo > 0)
         {
             StartReload();
         }
@@ -178,18 +184,9 @@ public class Gun : MonoBehaviour
     {
         if (muzzleFlashEffect != null)
         {
-            float duration = 0.1f; // 전체 이펙트 지속 시간
-            float blinkInterval = 0.02f; // 깜빡이는 간격 (20ms)
-            float elapsedTime = 0f;
-
-            while (elapsedTime < duration)
-            {
-                muzzleFlashEffect.SetActive(true); // 이펙트 활성화
-                yield return new WaitForSeconds(blinkInterval); // 20ms 대기
-                muzzleFlashEffect.SetActive(false); // 이펙트 비활성화
-                yield return new WaitForSeconds(blinkInterval); // 20ms 대기
-                elapsedTime += blinkInterval * 2; // 활성화+비활성화 시간 누적
-            }
+            muzzleFlashEffect.SetActive(true);
+            yield return new WaitForSeconds(0.05f); // 총구 이펙트 지속 시간
+            muzzleFlashEffect.SetActive(false);
         }
     }
 
@@ -204,7 +201,7 @@ public class Gun : MonoBehaviour
         if (clip != null)
         {
             audioSource.Stop(); // 기존에 재생 중인 사운드를 정지
-            audioSource.PlayOneShot(clip, 0.33f); // 볼륨을 1/3로 줄여 재생
+            audioSource.PlayOneShot(clip, 0.2f); // 볼륨 조절
         }
     }
 }
