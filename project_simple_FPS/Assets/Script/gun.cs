@@ -8,15 +8,19 @@ public class Gun : MonoBehaviour
     [SerializeField] private LayerMask layerMask; // 타격 판정을 위한 레이어 마스크
     [SerializeField] private Crosshair crosshair; // Crosshair 스크립트 참조
 
+    [Header("Fire Effects")]
+    [SerializeField] private GameObject muzzleFlashEffect; // 총구 이펙트 (On/Off)
+
     [Header("Audio Clips")]
-    [SerializeField]
-    private AudioClip audioClipTakeOutWeapon; // 무기 장착 사운드
+    [SerializeField] private AudioClip audioClipTakeOutWeapon; // 무기 장착 사운드
+    [SerializeField] private AudioClip audioClipFireWeapon; // 총 발사 사운드
 
     private AudioSource audioSource; // 사운드 재생 컴포넌트
+    private Animator animator; // 무기 애니메이션 컨트롤러
 
     private void Start()
     {
-        // 초기화 작업
+        animator = GetComponentInParent<Animator>(); // 부모 객체에서 Animator 가져오기
     }
 
     public void Shoot()
@@ -38,11 +42,35 @@ public class Gun : MonoBehaviour
             crosshair.OnFire();
         }
 
-        // 총 발사 로직
-        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, Mathf.Infinity, layerMask))
+        // Fire 애니메이션 재생
+        if (animator != null)
         {
-            IDamagable target = hit.transform.GetComponent<IDamagable>();
-            target?.TakeHit(damage);
+            animator.Play("Fire", -1, 0); // Fire 애니메이션 재생
+        }
+
+        // 총구 이펙트 실행
+        StartCoroutine(OnMuzzleFlashEffect());
+
+        // 총 발사 사운드 재생
+        PlaySound(audioClipFireWeapon);
+    }
+
+    private IEnumerator OnMuzzleFlashEffect()
+    {
+        if (muzzleFlashEffect != null)
+        {
+            float duration = 0.1f; // 전체 이펙트 지속 시간
+            float blinkInterval = 0.02f; // 깜빡이는 간격 (20ms)
+            float elapsedTime = 0f;
+
+            while (elapsedTime < duration)
+            {
+                muzzleFlashEffect.SetActive(true); // 이펙트 활성화
+                yield return new WaitForSeconds(blinkInterval); // 20ms 대기
+                muzzleFlashEffect.SetActive(false); // 이펙트 비활성화
+                yield return new WaitForSeconds(blinkInterval); // 20ms 대기
+                elapsedTime += blinkInterval * 2; // 활성화+비활성화 시간 누적
+            }
         }
     }
 
@@ -59,8 +87,10 @@ public class Gun : MonoBehaviour
 
     private void PlaySound(AudioClip clip)
     {
-        audioSource.Stop(); // 기존에 재생중인 사운드를 정지하고
-        audioSource.clip = clip; // 새로운 사운드를 clip으로 교체 후
-        audioSource.Play(); // 사운드 재생
+        if (clip != null)
+        {
+            audioSource.Stop(); // 기존에 재생 중인 사운드를 정지
+            audioSource.PlayOneShot(clip, 0.33f); // 볼륨을 1/3로 줄여 재생
+        }
     }
 }

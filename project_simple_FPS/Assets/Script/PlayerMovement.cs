@@ -27,6 +27,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 respawnPosition = new Vector3(0, 0, -7); // 리셋 위치
     private float fallThreshold = -10f; // 떨어지는 임계값
 
+    public bool IsSprinting { get; private set; } // 스프린트 상태를 외부에서 확인 가능
+
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
@@ -50,8 +52,8 @@ public class PlayerMovement : MonoBehaviour
         moveH = Input.GetAxis("Horizontal");
         moveV = Input.GetAxis("Vertical");
 
-        bool isSprinting = Input.GetKey(KeyCode.LeftShift);
-        moveSpeed = isSprinting ? baseMoveSpeed * sprintMultiplier : baseMoveSpeed;
+        IsSprinting = Input.GetKey(KeyCode.LeftShift); // LeftShift 키로 스프린트 상태 확인
+        moveSpeed = IsSprinting ? baseMoveSpeed * sprintMultiplier : baseMoveSpeed;
 
         if (characterController.isGrounded)
         {
@@ -71,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
 
         characterController.Move(moveVec * Time.deltaTime * moveSpeed);
 
-        UpdateAnimation(moveH, moveV, isSprinting);
+        UpdateAnimation(moveH, moveV, IsSprinting);
     }
 
     private void UpdateAnimation(float moveH, float moveV, bool isSprinting)
