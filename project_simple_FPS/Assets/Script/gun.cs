@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using TMPro;
 
 public class Gun : MonoBehaviour
 {
@@ -14,23 +15,82 @@ public class Gun : MonoBehaviour
     [Header("Audio Clips")]
     [SerializeField] private AudioClip audioClipTakeOutWeapon; // 무기 장착 사운드
     [SerializeField] private AudioClip audioClipFireWeapon; // 총 발사 사운드
+    [SerializeField] private AudioClip audioClipReload; // 재장전 사운드
+
+    [Header("Position Settings")]
+    [SerializeField] private Vector3 positionOffset = new Vector3(0.5f, -0.3f, 0.7f); // 카메라 기준 총 위치 오프셋
+    [SerializeField] private float followSpeed = 10f; // 카메라 따라가는 속도 (보간)
 
     [Header("Spawn Points")]
     [SerializeField] private Transform casingSpawnPoint; // 탄피 생성 위치
 
+    [Header("Ammo Settings")]
+    [SerializeField] private int magazineSize = 30; // 탄창 크기
+    [SerializeField] private int totalAmmo = 120; // 총알 총량
+    private int currentAmmo; // 현재 탄창 내 총알 수
+
+    [Header("UI")]
+    [SerializeField] private TextMeshProUGUI ammoText; // 남은 총알 UI
+
     private AudioSource audioSource; // 사운드 재생 컴포넌트
     private Animator animator; // 무기 애니메이션 컨트롤러
     private CasingMemoryPool casingMemoryPool; // 탄피 생성 메모리 풀
+    private bool isReloading = false; // 재장전 중인지 확인
 
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
         animator = GetComponentInParent<Animator>(); // 부모 객체에서 Animator 가져오기
         casingMemoryPool = GetComponent<CasingMemoryPool>(); // CasingMemoryPool 컴포넌트 가져오기
+        currentAmmo = magazineSize; // 초기 탄창 총알 설정
+
+        UpdateAmmoUI(); // 초기 총알 UI 업데이트
+    }
+
+    private void Update()
+    {
+        // 카메라를 기준으로 총 위치 및 회전 업데이트
+        SmoothFollowCamera();
+
+        // Reload 처리
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            StartReload();
+        }
+
+        // 자동 재장전
+        if (currentAmmo <= 0 && !isReloading)
+        {
+            StartReload();
+        }
+    }
+
+    private void SmoothFollowCamera()
+    {
+        if (cam == null) return;
+
+        // 목표 위치: 카메라 위치 + 오프셋
+        Vector3 targetPosition = cam.transform.position + cam.transform.TransformDirection(positionOffset);
+
+        // 부드럽게 위치 이동
+        transform.position = Vector3.Lerp(transform.position, targetPosition, followSpeed * Time.deltaTime);
+
+        // 카메라의 회전을 따라감
+        transform.rotation = Quaternion.Slerp(transform.rotation, cam.transform.rotation, followSpeed * Time.deltaTime);
     }
 
     public void Shoot()
     {
+        // 재장전 중에는 발사 불가
+        if (isReloading) return;
+
+        // 총알이 없을 경우 발사 불가
+        if (currentAmmo <= 0)
+        {
+            Debug.Log("Out of ammo! Reloading automatically...");
+            return;
+        }
+
         // Raycast로 타격 판정
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, Mathf.Infinity, layerMask))
         {
@@ -62,6 +122,50 @@ public class Gun : MonoBehaviour
 
         // 탄피 생성
         SpawnCasing();
+
+        // 탄창에서 총알 차감
+        currentAmmo--;
+        UpdateAmmoUI(); // 총알 UI 업데이트
+        Debug.Log($"Ammo: {currentAmmo}/{totalAmmo}");
+    }
+
+    private void StartReload()
+    {
+        // 이미 재장전 중이거나 탄창이 가득 차 있으면 리로드 불가
+        if (isReloading || currentAmmo == magazineSize || totalAmmo <= 0) return;
+
+        StartCoroutine(OnReload());
+    }
+
+    private IEnumerator OnReload()
+    {
+        isReloading = true;
+
+        // 재장전 애니메이션 및 사운드 재생
+        animator.SetTrigger("onReload");
+        PlaySound(audioClipReload);
+
+        // 재장전 대기 시간 (애니메이션 길이에 맞춰 조정)
+        yield return new WaitForSeconds(2.0f);
+
+        // 탄창에 남은 총알 채우기
+        int ammoNeeded = magazineSize - currentAmmo; // 필요한 총알 수
+        int ammoToReload = Mathf.Min(ammoNeeded, totalAmmo); // 보유 총알에서 필요한 만큼만 리로드
+        currentAmmo += ammoToReload;
+        totalAmmo -= ammoToReload;
+
+        UpdateAmmoUI(); // 총알 UI 업데이트
+        Debug.Log($"Reloaded: Ammo: {currentAmmo}/{totalAmmo}");
+
+        isReloading = false;
+    }
+
+    private void UpdateAmmoUI()
+    {
+        if (ammoText != null)
+        {
+            ammoText.text = $"{currentAmmo}/{totalAmmo}";
+        }
     }
 
     private void SpawnCasing()

@@ -11,6 +11,11 @@ public class PlayerAnimatorController : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
     }
 
+    public void OnReload()
+    {
+        animator.SetTrigger("onReload");
+    }
+
     public float MoveSpeed
     {
         set => animator.SetFloat("movementSpeed", value);
