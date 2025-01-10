@@ -1,8 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: 4d79ebbc8a1923042911c358d19f2744
-=======
-guid: 0e1f8302cd6811749b82dae211b2f707
+guid: 1fcceff0e4d519e459ef500c2945847f
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -12,4 +9,3 @@ MonoImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
->>>>>>> parent of 62c7dc3 (login)

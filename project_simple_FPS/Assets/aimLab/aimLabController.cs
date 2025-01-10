@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
-using UnityEngine.SceneManagement;
 
 public class aimLabController : MonoBehaviour
 {
@@ -92,9 +91,12 @@ public class aimLabController : MonoBehaviour
         uiController.UpdateScore(currentScore, targetScore);  // 점수 UI 초기화
         uiController.UpdateTime(timeLeft);  // 시간 UI 초기화
 <<<<<<< HEAD
+<<<<<<< HEAD
         SceneManager.LoadScene(2);
 =======
         SceneManager.LoadScene(3);
 >>>>>>> 0fc0ca5581b2adc2873ac62e3861715da1c28114
+=======
+>>>>>>> parent of 62c7dc3 (login)
     }
 }
