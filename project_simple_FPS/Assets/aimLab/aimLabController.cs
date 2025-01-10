@@ -91,6 +91,10 @@ public class aimLabController : MonoBehaviour
 
         uiController.UpdateScore(currentScore, targetScore);  // 점수 UI 초기화
         uiController.UpdateTime(timeLeft);  // 시간 UI 초기화
+<<<<<<< HEAD
         SceneManager.LoadScene(2);
+=======
+        SceneManager.LoadScene(3);
+>>>>>>> 0fc0ca5581b2adc2873ac62e3861715da1c28114
     }
 }
