@@ -4,6 +4,25 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
-  m_configObjects: {}
+  m_Scenes:
+  - enabled: 0
+    path: Assets/Scenes/SampleScene.unity
+    guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/loginscene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/GameModeScene.unity
+    guid: 9fc1734469b58904a897cbb18532b525
+  - enabled: 0
+    path: Assets/Scenes/aimLab_demo.unity
+    guid: 130de191e9bf7de41a659f68e5741ed0
+  - enabled: 1
+    path: Assets/aimLab/aimLab.unity
+    guid: 185b8702dbcd2b3479a2e982aaf4b6b1
+  - enabled: 1
+    path: Assets/Scenes/Adventure_demo.unity
+    guid: 5a463281e6e238742a45430f11e82829
+  m_configObjects:
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
