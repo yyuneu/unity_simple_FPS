@@ -14,7 +14,11 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
   serializedVersion: 10
+=======
+  serializedVersion: 9
+>>>>>>> parent of 62c7dc3 (login)
 =======
   serializedVersion: 9
 >>>>>>> parent of 62c7dc3 (login)
@@ -47,8 +51,13 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
   serializedVersion: 13
   m_BakeOnSceneLoad: 0
+=======
+  serializedVersion: 12
+  m_GIWorkflowMode: 1
+>>>>>>> parent of 62c7dc3 (login)
 =======
   serializedVersion: 12
   m_GIWorkflowMode: 1
@@ -76,6 +85,12 @@ LightmapSettings:
     m_LightmapsBakeMode: 1
     m_TextureCompression: 1
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    m_FinalGather: 0
+    m_FinalGatherFiltering: 1
+    m_FinalGatherRayCount: 256
+>>>>>>> parent of 62c7dc3 (login)
 =======
     m_FinalGather: 0
     m_FinalGatherFiltering: 1
@@ -109,7 +124,11 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_LightingDataAsset: {fileID: 20201, guid: 0000000000000000f000000000000000, type: 0}
+=======
+  m_LightingDataAsset: {fileID: 0}
+>>>>>>> parent of 62c7dc3 (login)
 =======
   m_LightingDataAsset: {fileID: 0}
 >>>>>>> parent of 62c7dc3 (login)
@@ -544,7 +563,10 @@ GameObject:
   - component: {fileID: 705507995}
   - component: {fileID: 705507994}
 <<<<<<< HEAD
+<<<<<<< HEAD
   - component: {fileID: 705507996}
+=======
+>>>>>>> parent of 62c7dc3 (login)
 =======
 >>>>>>> parent of 62c7dc3 (login)
   m_Layer: 0
@@ -563,8 +585,14 @@ Light:
   m_GameObject: {fileID: 705507993}
   m_Enabled: 1
 <<<<<<< HEAD
+<<<<<<< HEAD
   serializedVersion: 11
   m_Type: 1
+=======
+  serializedVersion: 10
+  m_Type: 1
+  m_Shape: 0
+>>>>>>> parent of 62c7dc3 (login)
 =======
   serializedVersion: 10
   m_Type: 1
@@ -620,12 +648,17 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_ForceVisible: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+=======
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+>>>>>>> parent of 62c7dc3 (login)
 =======
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -645,6 +678,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+<<<<<<< HEAD
 <<<<<<< HEAD
 --- !u!114 &705507996
 MonoBehaviour:
@@ -669,6 +703,8 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+=======
+>>>>>>> parent of 62c7dc3 (login)
 =======
 >>>>>>> parent of 62c7dc3 (login)
 --- !u!1 &717437739
@@ -779,7 +815,10 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 7afee1e0568f0274fbb90e1cdb928a6f, type: 3}
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_Resource: {fileID: 8300000, guid: 7afee1e0568f0274fbb90e1cdb928a6f, type: 3}
+=======
+>>>>>>> parent of 62c7dc3 (login)
 =======
 >>>>>>> parent of 62c7dc3 (login)
   m_PlayOnAwake: 0
@@ -973,7 +1012,10 @@ GameObject:
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
 <<<<<<< HEAD
+<<<<<<< HEAD
   - component: {fileID: 963194229}
+=======
+>>>>>>> parent of 62c7dc3 (login)
 =======
 >>>>>>> parent of 62c7dc3 (login)
   m_Layer: 0
@@ -1058,6 +1100,7 @@ Transform:
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!114 &963194229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1102,6 +1145,8 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+=======
+>>>>>>> parent of 62c7dc3 (login)
 =======
 >>>>>>> parent of 62c7dc3 (login)
 --- !u!1 &1182105979
@@ -1798,6 +1843,10 @@ GameObject:
   - component: {fileID: 1864879414}
   - component: {fileID: 1864879413}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+  - component: {fileID: 1864879416}
+>>>>>>> parent of 62c7dc3 (login)
 =======
   - component: {fileID: 1864879416}
 >>>>>>> parent of 62c7dc3 (login)
@@ -1859,7 +1908,10 @@ Transform:
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 62c7dc3 (login)
 --- !u!114 &1864879416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1877,6 +1929,9 @@ MonoBehaviour:
   passwordInput: {fileID: 605316894}
   welcomeText: {fileID: 2109137818}
   loginButton: {fileID: 2045498663}
+<<<<<<< HEAD
+>>>>>>> parent of 62c7dc3 (login)
+=======
 >>>>>>> parent of 62c7dc3 (login)
 --- !u!1 &2001509338
 GameObject:
@@ -1907,7 +1962,10 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 00b8452a2affc4b448c81b9abcb75bcb, type: 3}
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_Resource: {fileID: 8300000, guid: 00b8452a2affc4b448c81b9abcb75bcb, type: 3}
+=======
+>>>>>>> parent of 62c7dc3 (login)
 =======
 >>>>>>> parent of 62c7dc3 (login)
   m_PlayOnAwake: 0

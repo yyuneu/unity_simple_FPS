@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:project_simple_FPS/Assets/start/fps3.png.meta
 guid: 4435fe88631316d448f1d81370bf054f
+========
+guid: 24b73e827c263634495a77a07a7045cb
+>>>>>>>> parent of 62c7dc3 (login):project_simple_FPS/Assets/start/fps2.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}

@@ -1,4 +1,5 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 <<<<<<< HEAD:project_simple_FPS/Assets/start/KakaoTalk_20250109_235038127_02.png.meta
 <<<<<<< HEAD
 guid: 9e8648c0d4038aa4a97c474e370416d9
@@ -8,6 +9,13 @@ guid: 5afcfea7fc6b38d4da0c7771f71bdbdc
 =======
 guid: df24ce654d3c9c1469608f20de12c8cd
 >>>>>>> parent of 62c7dc3 (login):project_simple_FPS/Assets/start/fps1.png.meta
+=======
+<<<<<<<< HEAD:project_simple_FPS/Assets/start/fps2.png.meta
+guid: 24b73e827c263634495a77a07a7045cb
+========
+guid: df24ce654d3c9c1469608f20de12c8cd
+>>>>>>>> parent of 62c7dc3 (login):project_simple_FPS/Assets/start/fps1.png.meta
+>>>>>>> parent of 62c7dc3 (login)
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -19,10 +27,14 @@ TextureImporter:
     linearTexture: 0
     fadeOut: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
     borderMipMap: 0
 =======
     borderMipMap: 1
 >>>>>>> 0fc0ca5581b2adc2873ac62e3861715da1c28114
+=======
+    borderMipMap: 0
+>>>>>>> parent of 62c7dc3 (login)
     mipMapsPreserveCoverage: 0
     alphaTestReferenceValue: 0.5
     mipMapFadeDistanceStart: 1
@@ -48,10 +60,14 @@ TextureImporter:
     serializedVersion: 2
     filterMode: 1
 <<<<<<< HEAD
+<<<<<<< HEAD
     aniso: 1
 =======
     aniso: 0
 >>>>>>> 0fc0ca5581b2adc2873ac62e3861715da1c28114
+=======
+    aniso: 1
+>>>>>>> parent of 62c7dc3 (login)
     mipBias: 0
     wrapU: 1
     wrapV: 1
@@ -110,6 +126,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   - serializedVersion: 4
     buildTarget: WebGL
@@ -125,6 +142,8 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
 >>>>>>> 0fc0ca5581b2adc2873ac62e3861715da1c28114
+=======
+>>>>>>> parent of 62c7dc3 (login)
   spriteSheet:
     serializedVersion: 2
     sprites: []
