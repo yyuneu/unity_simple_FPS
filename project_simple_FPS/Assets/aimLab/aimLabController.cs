@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
+using UnityEngine.SceneManagement;
 
 public class aimLabController : MonoBehaviour
 {
@@ -90,5 +91,6 @@ public class aimLabController : MonoBehaviour
 
         uiController.UpdateScore(currentScore, targetScore);  // 점수 UI 초기화
         uiController.UpdateTime(timeLeft);  // 시간 UI 초기화
+        SceneManager.LoadScene(3);
     }
 }
