@@ -121,4 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29bdfa821587d3443ae85c20b5992f83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 20
+  hp: 10
+  controller: {fileID: 0}
+  startTarget: {fileID: 0}
+  generator: {fileID: 0}

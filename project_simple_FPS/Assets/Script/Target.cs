@@ -5,7 +5,7 @@ using UnityEngine;
 public class Target : MonoBehaviour, IDamagable
 {
     [SerializeField]
-    private float hp = 20f;
+    private float hp = 10f;
 
     public void TakeHit(float damage)
     {

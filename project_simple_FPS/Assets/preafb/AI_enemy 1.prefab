@@ -363,6 +363,7 @@ MonoBehaviour:
   muzzleFlashEffect: {fileID: 3593601468944750373}
   gunShotSound: {fileID: 8300000, guid: 38b450e2adcb6f542acc8c1d423bd8dc, type: 3}
   gunShotVolume: 0.2
+  enemiesDefeatedText: {fileID: 0}
 --- !u!114 &3665922719495661213
 MonoBehaviour:
   m_ObjectHideFlags: 0

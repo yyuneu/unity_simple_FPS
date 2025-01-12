@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem.XR;
 using UnityEngine.SceneManagement;
 
 public class aimLabController : MonoBehaviour
@@ -13,22 +12,26 @@ public class aimLabController : MonoBehaviour
     public GameObject startTargetPrefab;
 
     private bool isGameOver = true;  // 초기 상태는 게임 종료 상태
-    private bool isGameRunning = false;  // 게임 진행 여부
+    public bool isGameRunning = false;  // 게임 진행 여부
     public UIController uiController;
-    Vector3 startPos = new Vector3(0, 2, -13); //startTarget 위치
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    Vector3 startPos = new Vector3(0, 2, -13); // 초기 타겟 위치
+
     void Start()
     {
-        generator.StartGenerating(false);  // 게임이 시작되기 전에는 공 생성 X
+        generator.StartGenerating(false);  // 게임 시작 전 타겟 생성 비활성화
         timeLeft = gameTime;  // 초기 남은 시간 설정
-        
-        Instantiate(startTargetPrefab,startPos,Quaternion.identity);  // 초기 startTarget 생성
+
+        // 초기 타겟 생성
+        Instantiate(startTargetPrefab, startPos, Quaternion.identity);
+
+        // 대화 컨트롤러에서 대화 시작
+        DialogueController dialogueController = Object.FindFirstObjectByType<DialogueController>();
+        dialogueController.StartDialogue();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (!isGameRunning) return;  // 게임이 시작되지 않았으면 시간 감소 로직 실행하지 않음
+        if (!isGameRunning) return;  // 게임이 진행 중이 아니면 업데이트 종료
 
         timeLeft -= Time.deltaTime;  // 남은 시간 감소
 
@@ -36,36 +39,46 @@ public class aimLabController : MonoBehaviour
         if (timeLeft <= 0)
         {
             timeLeft = 0;
-            EndGame();
+            EndGame(false);  // 실패 시 종료 처리
         }
 
-        uiController.UpdateTime(timeLeft);  // UI에 남은 시간 업데이트
+        // UI에 남은 시간 업데이트
+        uiController.UpdateTime(timeLeft);
     }
 
-    // 점수 증가 함수
     public void IncreaseScore()
     {
         currentScore += getScore;
-        uiController.UpdateScore(currentScore, targetScore);  // 점수 업데이트
+        uiController.UpdateScore(currentScore, targetScore);  // 점수 UI 업데이트
         Debug.Log(currentScore);
 
-        // 목표 점수에 도달하면 게임 종료
+        // 목표 점수 도달 시 게임 종료 처리
         if (currentScore >= targetScore)
         {
-            EndGame();
+            EndGame(true);  // 성공 시 종료 처리
         }
     }
 
-    // 게임 종료 함수
-    private void EndGame()
+    private void EndGame(bool isSuccess)
     {
         isGameOver = true;
         isGameRunning = false;
-        generator.StartGenerating(false);  // 공 생성 멈추기
-        ResetGame();
+        generator.StartGenerating(false);  // 타겟 생성 비활성화
+
+        if (isSuccess)
+        {
+            // 다음 씬 Adventure_demo로 전환
+            Debug.Log("Game Completed! Loading Adventure_demo...");
+            SceneManager.LoadScene("Adventure_demo"); // Adventure_demo 씬 로드
+        }
+        else
+        {
+            // 실패 시 다시 도전
+            Debug.Log("Game Over! Try Again.");
+            ResetGame();
+        }
     }
 
-    // 게임 시작 함수
     public void StartGame()
     {
         if (!isGameOver) return;  // 이미 게임이 진행 중이면 실행하지 않음
@@ -75,8 +88,7 @@ public class aimLabController : MonoBehaviour
         timeLeft = gameTime;  // 초기 시간 설정
         currentScore = 0;  // 점수 초기화
         uiController.UpdateScore(currentScore, targetScore);  // 점수 UI 초기화
-        generator.StartGenerating(true);  // 공 생성 시작
-      
+        generator.StartGenerating(true);  // 타겟 생성 활성화
     }
 
     private void ResetGame()
@@ -91,6 +103,5 @@ public class aimLabController : MonoBehaviour
 
         uiController.UpdateScore(currentScore, targetScore);  // 점수 UI 초기화
         uiController.UpdateTime(timeLeft);  // 시간 UI 초기화
-        SceneManager.LoadScene(3);
     }
 }
