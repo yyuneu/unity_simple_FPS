@@ -67,15 +67,18 @@ public class EnemyManager : MonoBehaviour
 
     private void LoadNextScene()
     {
-        // 다음 씬 로드 (Build Settings에서 씬 인덱스를 사용)
-        int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
-        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+        // "LastScene" 이름의 씬으로 이동
+        string lastSceneName = "LastScene";
+
+        // 씬 이름이 빌드 설정에 포함되어 있는지 확인
+        if (Application.CanStreamedLevelBeLoaded(lastSceneName))
         {
-            SceneManager.LoadScene(nextSceneIndex);
+            SceneManager.LoadScene(lastSceneName);
         }
         else
         {
-            Debug.LogWarning("No more scenes to load. Check your Build Settings.");
+            Debug.LogWarning($"Scene '{lastSceneName}' not found in Build Settings. Check your scene configuration.");
         }
     }
+
 }

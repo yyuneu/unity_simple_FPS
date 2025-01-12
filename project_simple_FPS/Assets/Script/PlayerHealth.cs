@@ -9,7 +9,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private TextMeshProUGUI healthText; // HP를 표시할 UI 텍스트
     [SerializeField] private Image damageEffect; // 데미지 이펙트 UI 이미지
     [SerializeField] private float damageEffectDuration = 0.5f; // 데미지 이펙트 지속 시간
-    [SerializeField] private Vector3 respawnPosition = new Vector3(0, 0, -7); // 리스폰 위치
+    [SerializeField] private Vector3 respawnPosition = new Vector3(-25, 3, -55); // 리스폰 위치
 
     private int currentHealth;
 

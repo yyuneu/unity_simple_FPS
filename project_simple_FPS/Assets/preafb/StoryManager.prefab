@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1007583184393614409
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1519480060587012496}
+  - component: {fileID: 6234118764482047257}
+  m_Layer: 0
+  m_Name: StoryManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1519480060587012496
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007583184393614409}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 704.9954, y: 166.40472, z: -57.215454}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6234118764482047257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007583184393614409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f57062cf56443f4db4c393174026793, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  storyImage: {fileID: 0}
+  storyText: {fileID: 0}
+  storyImages:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 21300000, guid: a8e4df80e739c664c965e2cc877ebf77, type: 3}
+  - {fileID: 21300000, guid: 2d84fddee9fc700459b53463f2eb4416, type: 3}
+  - {fileID: 0}
+  - {fileID: 21300000, guid: 6bf1132ef17a95f48a322bf1f7ac5033, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  storyTexts:
+  - "2095\uB144, \uD669\uD3D0\uD55C \uB300\uC9C0 \uC704 \uC791\uC740 \uB9C8\uC744,
+    \uC774\uB984\uB3C4 \uC5C6\uC774 \uC78A\uD600\uC9C4 \uACF3."
+  - "\uC18C\uB144\uC740 \uC774\uACF3\uC5D0\uC11C \uD3C9\uD654\uB86D\uAC8C \uC0B4\uC544\uAC00\uACE0
+    \uC788\uC5C8\uB2E4."
+  - "\uADF8\uB7EC\uB098, \uADF8\uB0A0\uC740 \uD3C9\uBC94\uD558\uC9C0 \uC54A\uC558\uB2E4."
+  - "2095\uB144, \uD558\uB298\uC744 \uAC00\uB974\uB294 \uAE30\uACC4 \uC18C\uC74C\uACFC
+    \uD568\uAED8 \uB9C8\uC744\uC774 \uBD88\uD0C0\uC62C\uB790\uB2E4."
+  - "\uB85C\uBD07 \uAC31\uB2E8\uC740 \uBAA8\uB4E0 \uAC83\uC744 \uD30C\uAD34\uD558\uBA70
+    \uB9C8\uC744\uC744 \uC9D1\uC5B4\uC0BC\uCF30\uB2E4."
+  - "\u201C\uC65C \uB098\uB9CC \uC0B4\uC544\uB0A8\uC558\uC744\uAE4C\u2026 \uC65C\u2026\u201D"
+  - "\uC18C\uB144\uC740 \uD3D0\uD5C8 \uC18D\uC5D0\uC11C \uC5B4\uBA38\uB2C8\uC758
+    \uBAA9\uAC78\uC774\uB97C \uC950\uACE0 \uB9F9\uC138\uD588\uB2E4."
+  - "\u201C\uC800\uB4E4\uC744 \uBC18\uB4DC\uC2DC \uC5C6\uC560\uACE0\uC57C \uB9D0\uACA0\uB2E4.\u201D"
+  - "\u201C\uBD88\uAE38\uC740 \uBAA8\uB4E0 \uAC83\uC744 \uC0BC\uCF30\uB2E4.\u201D"
+  - "\u201C\uB0A8\uC740 \uAC83\uC740 \uC624\uC9C1 \uC7AC\uC640 \uBCF5\uC218\uBFD0.\u201D"
+  - "4\uB144 \uB4A4, 2099\uB144"
+  slideAudioClips:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 8300000, guid: 0e253f691d7c5544297bbb3cc50f39fd, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  backgroundMusic: {fileID: 8300000, guid: c3166cd0bc196d54585b63b8a1e210be, type: 3}
+  typingSpeed: 0.05

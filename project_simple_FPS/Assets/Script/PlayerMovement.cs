@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     private float moveY; // 중력계산
     private float moveSpeed; // 현재 이동 속도
 
-    private Vector3 respawnPosition = new Vector3(0, 0, -7); // 리셋 위치
+    private Vector3 respawnPosition = new Vector3(-25, 3, -55); // 리셋 위치
     private float fallThreshold = -10f; // 떨어지는 임계값
 
     public bool IsSprinting { get; private set; } // 스프린트 상태를 외부에서 확인 가능
